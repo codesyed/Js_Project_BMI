@@ -25,38 +25,76 @@
     </div>
   </body>
   <script>
-    let height = document.getElementById("height");
-    let weight = document.getElementById("weight");
-    let h = 1;
-    let w = 1;
-    height.addEventListener(
-      "input",
+    //Professional and best way to deal with Forms
+    let form = document.querySelector("form");
+    //event of submit
+    form.addEventListener(
+      "submit",
       function (e) {
-        // console.log(typeof e.target.value); //string
-        h = parseInt(e.target.value);
-        console.log(h); //number
-      },
-      false
-    );
-
-    weight.addEventListener(
-      "input",
-      function (e) {
-        w = parseInt(e.target.value);
-        console.log(w); //number
-      },
-      false
-    );
-
-    let button = document.querySelector("button");
-    button.addEventListener(
-      "click",
-      function (e) {
+        //prevent default submitting to server
         e.preventDefault();
-        let res = (w / (h * h)) * 10000;
-        document.getElementById("results").innerHTML = res;
+
+        //we only want input values when submit button is clicked
+        let height = parseInt(document.getElementById("height").value);
+        let weight = parseInt(document.getElementById("weight").value);
+        let res = (weight / ((height * height) / 10000)).toFixed(2);
+
+        if(height==="" || height<0 || isNaN(height)){
+            results.innerHTML = `Please give a valid height ${height}`;
+        }
+        else if(weight=="" || weight<0 || isNaN(weight)){
+            results.innerHTML = `Please give a valid weight ${weight}`;
+        }
+        else{
+            if(res<18.6){
+              document.getElementById("results").innerHTML = ` 😕 Under Weight: ${res}`;
+              document.getElementById("results").style.color = "red";
+            }
+            else if(res>=18.6 && res<=24.9){
+              document.getElementById("results").innerHTML = ` 😁 Normal Range: ${res}`;
+              document.getElementById("results").style.color = "green";
+            }
+            else{
+              document.getElementById("results").innerHTML = ` 😐 Overweight: ${res}`;
+              document.getElementById("results").style.color = "red";
+            }
+        }
       },
       false
     );
   </script>
 </html>
+
+<!-- let height = document.getElementById("height");
+let weight = document.getElementById("weight");
+let h = 1;
+let w = 1;
+height.addEventListener(
+  "input",
+  function (e) {
+    // console.log(typeof e.target.value); //string
+    h = parseInt(e.target.value);
+    console.log(h); //number
+  },
+  false
+);
+
+weight.addEventListener(
+  "input",
+  function (e) {
+    w = parseInt(e.target.value);
+    console.log(w); //number
+  },
+  false
+);
+
+let button = document.querySelector("button");
+button.addEventListener(
+  "click",
+  function (e) {
+    e.preventDefault();
+    let res = (w / (h * h)) * 10000;
+    document.getElementById("results").innerHTML = res;
+  },
+  false
+); -->

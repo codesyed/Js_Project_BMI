@@ -29,18 +29,34 @@
     let weight = document.getElementById("weight");
     let h = 1;
     let w = 1;
-
-    height.addEventListener("input", function(e){
+    height.addEventListener(
+      "input",
+      function (e) {
         // console.log(typeof e.target.value); //string
         h = parseInt(e.target.value);
-        console.log( h); //number
-    }, false);
-    
-    weight.addEventListener("input", function(e){
-        w = parseInt(e.target.value);
-        console.log( w); //number
-    }, false);
+        console.log(h); //number
+      },
+      false
+    );
 
-    // console.log(w,h);
+    weight.addEventListener(
+      "input",
+      function (e) {
+        w = parseInt(e.target.value);
+        console.log(w); //number
+      },
+      false
+    );
+
+    let button = document.querySelector("button");
+    button.addEventListener(
+      "click",
+      function (e) {
+        e.preventDefault();
+        let res = (w / (h * h)) * 10000;
+        document.getElementById("results").innerHTML = res;
+      },
+      false
+    );
   </script>
 </html>
